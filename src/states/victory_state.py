@@ -73,7 +73,7 @@ class VictoryState(BaseState):
              (255, 255, 255), center=True
         )
         render_text(
-            surface, 'Press Enter to serve!', settings.GAME_FONTS['medium'],
+            surface, 'Press Enter to continue!', settings.GAME_FONTS['medium'],
             settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT//2,
             (255, 255, 255), center=True
         )

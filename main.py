@@ -1,12 +1,6 @@
 """
 This file contains the implementation of the game Breakout.
 
-Update:
-    - Music
-    - Pause
-    - Adding lives
-    - Pushing the ball
-
 Author: Alejandro Mujica (aledrums@gmail.com)
 Date: 07/14/2020
 """
@@ -18,6 +12,7 @@ from lib.state_machine import StateMachine
 import settings
 
 from src import states
+
 
 class Breakout(Game):
     def init(self):

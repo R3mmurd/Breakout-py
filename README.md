@@ -30,3 +30,8 @@ Control keys are:
 - Music and background image from [opengameart.org](https://opengameart.org/).
 - Sound effects made with [bfxr](https://www.bfxr.net/).
   
+## Demo
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=IyucgB6SY2k
+" target="_blank"><img src="http://img.youtube.com/vi/IyucgB6SY2k/0.jpg"
+alt="Demo Pacman" width="240" height="180" border="10" /></a>.

@@ -150,7 +150,9 @@ class PlayState(BaseState):
                         self.paddle.inc_size()
 
                     # Chance to generate a brick key
-                    bricks_in_play = len(self.bricks) - self.broken_bricks_counter
+                    bricks_in_play = (
+                        len(self.bricks) - self.broken_bricks_counter
+                    )
                     if (self.locked_brick is not None
                             and random.randint(1, bricks_in_play) == 1):
                         r = brick.get_collision_rect()

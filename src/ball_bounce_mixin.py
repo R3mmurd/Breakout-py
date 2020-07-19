@@ -38,8 +38,10 @@ class BallBounceMixin:
     def rebound(self, ball):
         br = ball.get_collision_rect()
         sr = self.get_collision_rect()
+        
+        r = self.get_intersection(br, sr)
 
-        if (r := self.get_intersection(br, sr)) is None:
+        if r is None:
             return
 
         shift_x, shift_y = r

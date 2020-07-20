@@ -79,7 +79,7 @@ class Tween(TimerItemBase):
             for obj, attrs in self.objs.items():    
                 for var, val in attrs.items():
                     setattr(
-                        obj, var, getattr(obj, var) + val['target']*dt
+                        obj, var, val['target']
                     )
 
             self.on_finish()

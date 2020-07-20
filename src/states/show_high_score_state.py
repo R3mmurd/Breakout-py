@@ -7,7 +7,7 @@ Data: 07/16/2020
 import pygame
 
 from lib.base_state import BaseState
-from lib.render import render_text
+from lib.text import render_text
 
 from src.highscores import read_highscores
 

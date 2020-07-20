@@ -6,7 +6,7 @@ Date: 07/15/2020
 """
 import pygame
 
-from lib.particle_system import PartcileSystem
+from lib.particle_system import ParticleSystem
 
 import settings
 
@@ -38,7 +38,7 @@ class Brick(BallBounceMixin):
 
         self.locked = False
 
-        self.particle_system = PartcileSystem(self.x + 16, self.y + 8, 64)
+        self.particle_system = ParticleSystem(self.x + 16, self.y + 8, 64)
         self.particle_system.set_life_time(0.2, 0.4)
         self.particle_system.set_linear_acceleration(-0.3, 0.5, 0.3, 1)
         self.particle_system.set_area_spread(4, 7)

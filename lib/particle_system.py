@@ -48,7 +48,7 @@ class Particle:
         pygame.draw.circle(s, self.color, (2, 2), 2)
         surface.blit(s, (int(self.x), int(self.y)))
 
-class PartcileSystem:
+class ParticleSystem:
     def __init__(self, x, y, n):
         """
         Builds a particle system.

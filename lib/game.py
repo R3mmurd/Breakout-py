@@ -37,6 +37,8 @@ class Game:
         )
         self.clock = pygame.time.Clock()
 
+        self.running = False
+
         self.init()
 
     def init(self):
@@ -61,18 +63,21 @@ class Game:
         pygame.display.update()
 
     def exec(self):
-        while True:
+        self.running = True
+
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()  
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        return
-                    else:
-                        self.keydown(event.key)
+                    self.keydown(event.key)
             
             dt = self.clock.tick() / 1000
             Timer.update(dt)
             self.update(dt)
             self._render()
+
+        pygame.quit()
+
+    def quit(self):
+        self.running = False

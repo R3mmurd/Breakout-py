@@ -41,6 +41,8 @@ class Breakout(Game):
         self.state_machine.render(surface)
 
     def keydown(self, key):
+        if key == pygame.K_ESCAPE:
+            self.quit()
         settings.pressed_keys[key] = True
 
 if __name__ == '__main__':

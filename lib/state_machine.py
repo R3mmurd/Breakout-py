@@ -21,7 +21,36 @@ Usage:
     })
     state_machine.change('state_1')
 """
-from .base_state import BaseState
+
+
+class BaseState:
+    """
+    This class represents an empty state. Any state machines
+    will start in this state.
+
+    It also is the base for any state. You should extend
+    this class to implement any new state class.
+    """
+    def __init__(self, state_machine):
+        self.state_machine = state_machine
+
+    def enter(self, *args, **kwargs):
+        """
+        Method to be executed when the state machine enters in the state.
+        """
+        pass
+
+    def exit(self):
+        """
+        Method to be executed when the state machine exits from the state.
+        """
+        pass
+
+    def update(self, dt):
+        pass
+
+    def render(self, surface):
+        pass
 
 
 class StateMachine:

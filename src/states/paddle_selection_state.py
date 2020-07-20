@@ -7,7 +7,7 @@ Date: 07/16/2020
 import pygame
 
 from lib.base_state import BaseState
-from lib.render import render_text
+from lib.text import render_text
 
 import settings
 from src.paddle import Paddle

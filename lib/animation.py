@@ -20,8 +20,8 @@ class Animation:
         self.current_frame = 0
 
     def update(self, dt):
-        if ((self.loops is not None and self.times_played > self.loops)
-                or self.size == 1):
+        if (self.size <= 1 or (self.loops is not None
+                and self.times_played > self.loops)):
             return
         
         self.timer += dt

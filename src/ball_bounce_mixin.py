@@ -10,8 +10,10 @@ Author: Alejandro Mujica
 Date: 15/07/2020
 """
 
+
 class BallBounceMixin:
-    def get_intersection(self, r1, r2):
+    @staticmethod
+    def get_intersection(r1, r2):
         """
         Compute, if exists, the intersection between two
         rectangles.

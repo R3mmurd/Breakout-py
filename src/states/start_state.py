@@ -6,8 +6,8 @@ Date: 07/14/2020
 """
 import pygame
 
-from lib.state_machine import BaseState
-from lib.text import render_text
+from garble.state_machine import BaseState
+from garble.text import render_text
 
 import settings
 

@@ -8,8 +8,8 @@ import string
 
 import pygame
 
-from lib.state_machine import BaseState
-from lib.text import render_text
+from garble.state_machine import BaseState
+from garble.text import render_text
 
 from src.highscores import read_highscores, write_highscores
 

@@ -5,16 +5,29 @@ This is a another remake of the classic game
 
 ## Getting started
 
+Set up a virtual environment, for example:
+
+```bash
+$ python3 -m venv .venv
+```
+
+Activate the virtual environment:
+
+```bash
+$ source .venv/bin/activate
+```
+
 Install the requirements:
 
 ```bash
-pip3 install pygame
+$ pip install wheel
+$ pip install -r requirements.txt
 ```
 
 Run the game:
 
 ```bash
-python3 main.py
+$ python main.py
 ```
 
 ## How to play

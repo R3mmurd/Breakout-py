@@ -39,6 +39,7 @@ Control keys are:
 - P: pause or resume game.
 
 ## Credits
+
 - Object graphics from [CS50G](https://courses.edx.org/courses/course-v1:HarvardX+CS50G+Games/course/).
 - Music and background image from [opengameart.org](https://opengameart.org/).
 - Sound effects made with [bfxr](https://www.bfxr.net/).

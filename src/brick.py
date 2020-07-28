@@ -6,7 +6,7 @@ Date: 07/15/2020
 """
 import pygame
 
-from garble.particle_system import ParticleSystem
+from gale.particle_system import ParticleSystem
 
 import settings
 

@@ -6,8 +6,8 @@ Date: 07/14/2020
 """
 import pygame
 
-from garble.game import Game
-from garble.state_machine import StateMachine
+from gale.game import Game
+from gale.state_machine import StateMachine
 
 import settings
 

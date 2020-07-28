@@ -6,8 +6,8 @@ Data: 07/16/2020
 """
 import pygame
 
-from garble.state_machine import BaseState
-from garble.text import render_text
+from gale.state_machine import BaseState
+from gale.text import render_text
 
 from src.highscores import read_highscores
 

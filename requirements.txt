@@ -1,2 +1,2 @@
 pygame
-https://github.com/R3mmurd/gale/archive/master.zip
+https://github.com/R3mmurd/Gale/archive/master.zip

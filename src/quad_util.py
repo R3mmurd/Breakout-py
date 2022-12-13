@@ -9,12 +9,12 @@ import pygame
 
 def generate_quads(atlas, tile_width, tile_height):
     """
-    Given and atlas, this function builds a list of quads based on
+    Given an atlas, this function builds a list of quads based on
     atlas dimensions, tile width, and tile height.
 
-    :param atlas: surace with the texture.
-    :param tile_width: with of the sprite.
-    :param tile_height: Height of the sprite.
+    :param atlas: surface with the texture.
+    :param tile_width: width of the sprite.
+    :param tile_height: height of the sprite.
     """
     atlas_width, atlas_height = atlas.get_size()
 

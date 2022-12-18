@@ -55,6 +55,6 @@ class BallBounceMixin:
             ball.x += shift_x
             ball.vx *= -1
         else:
-            # Collision happend from top or bottom
+            # Collision happened from top or bottom
             ball.y += shift_y
             ball.vy *= -1        

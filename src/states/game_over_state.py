@@ -7,19 +7,24 @@ Date: 07/14/2020
 import pygame
 
 from gale.state_machine import BaseState
+from gale.input_handler import InputHandler, InputListener
 from gale.text import render_text
 
 import settings
 
 
-class GameOverState(BaseState):
+class GameOverState(BaseState, InputListener):
     def enter(self, score):
+        InputHandler.register_listener(self)
         self.score = score
 
-    def update(self, dt):
-        if settings.pressed_keys.get(pygame.K_RETURN):
+    def exit(self):
+        InputHandler.unregister_listener(self)
+
+    def on_input(self, input_id, input_data):
+        if input_id == 'enter' and input_data.pressed:
             self.state_machine.change('enter_high_score', score=self.score)
-    
+
     def render(self, surface):
         render_text(
             surface, 'Game Over', settings.GAME_FONTS['large'],

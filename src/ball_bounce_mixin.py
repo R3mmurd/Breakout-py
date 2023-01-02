@@ -40,7 +40,7 @@ class BallBounceMixin:
     def rebound(self, ball):
         br = ball.get_collision_rect()
         sr = self.get_collision_rect()
-        
+
         r = self.get_intersection(br, sr)
 
         if r is None:
@@ -57,4 +57,4 @@ class BallBounceMixin:
         else:
             # Collision happened from top or bottom
             ball.y += shift_y
-            ball.vy *= -1        
+            ball.vy *= -1

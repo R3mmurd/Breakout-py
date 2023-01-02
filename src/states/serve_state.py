@@ -7,6 +7,7 @@ Date: 07/14/2020
 import pygame
 
 from gale.state_machine import BaseState
+from gale.input_handler import InputHandler, InputListener
 from gale.text import render_text
 
 from src.paddle import Paddle
@@ -15,8 +16,10 @@ from src.level_maker import create_level
 
 import settings
 
-class ServeState(BaseState):
+
+class ServeState(BaseState, InputListener):
     def enter(self, **params):
+        InputHandler.register_listener(self)
         self.level = params['level']
         self.paddle = params['paddle']
         self.paddle.x = settings.VIRTUAL_WIDTH//2-32
@@ -33,8 +36,11 @@ class ServeState(BaseState):
             'points_to_next_live', settings.LIVE_POINTS_BASE
         )
 
-    def update(self, dt):
-        if settings.pressed_keys.get(pygame.K_RETURN):
+    def exit(self):
+        InputHandler.unregister_listener(self)
+
+    def on_input(self, input_id, input_data):
+        if input_id == 'enter' and input_data.pressed:
             self.state_machine.change(
                 'play',
                 level=self.level,
@@ -48,20 +54,22 @@ class ServeState(BaseState):
                 live_factor=self.live_factor
             )
 
-        keys = pygame.key.get_pressed()
-        
-        if keys[pygame.K_LEFT]:
-            self.paddle.vx = -settings.PADDLE_SPEED
-        elif keys[pygame.K_RIGHT]:
-            self.paddle.vx = settings.PADDLE_SPEED
-        else:
-            self.paddle.vx = 0
+        elif input_id == 'left':
+            if input_data.pressed:
+                self.paddle.vx = -settings.PADDLE_SPEED
+            elif input_data.released and self.paddle.vx < 0:
+                self.paddle.vx = 0
+        elif input_id == 'right':
+            if input_data.pressed:
+                self.paddle.vx = settings.PADDLE_SPEED
+            elif input_data.released and self.paddle.vx > 0:
+                self.paddle.vx = 0
 
+    def update(self, dt):
         self.paddle.update(dt)
-        self.ball.x = self.paddle.x + self.paddle.width//2 - 2
+        self.ball.x = self.paddle.x + self.paddle.width // 2 - 2
 
     def render(self, surface):
-        
         heart_x = settings.VIRTUAL_WIDTH-120
 
         i = 0
@@ -73,7 +81,7 @@ class ServeState(BaseState):
             )
             heart_x += 11
             i += 1
-        
+
         # Draw empty hearts
         while i < 3:
             surface.blit(
@@ -96,8 +104,8 @@ class ServeState(BaseState):
 
         render_text(
             surface, f'Level {self.level}', settings.GAME_FONTS['large'],
-             settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT//2-30,
-             (255, 255, 255), center=True
+            settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT//2-30,
+            (255, 255, 255), center=True
         )
         render_text(
             surface, 'Press Enter to serve!', settings.GAME_FONTS['medium'],

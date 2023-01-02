@@ -7,13 +7,15 @@ Date: 07/16/2020
 import pygame
 
 from gale.state_machine import BaseState
+from gale.input_handler import InputHandler, InputListener
 from gale.text import render_text
 
 import settings
 
 
-class VictoryState(BaseState):
+class VictoryState(BaseState, InputListener):
     def enter(self, **params):
+        InputHandler.register_listener(self)
         settings.GAME_SOUNDS['level_complete'].play()
         self.lives = params['lives']
         self.level = params['level']
@@ -23,8 +25,11 @@ class VictoryState(BaseState):
         self.live_factor = params['live_factor']
         self.points_to_next_live = params['points_to_next_live']
 
-    def update(self, dt):
-        if settings.pressed_keys.get(pygame.K_RETURN):
+    def exit(self):
+        InputHandler.unregister_listener(self)
+
+    def on_input(self, input_id, input_data):
+        if input_id == 'enter' and input_data.pressed:
             self.state_machine.change(
                 'serve',
                 lives=self.lives,
@@ -34,7 +39,7 @@ class VictoryState(BaseState):
                 points_to_next_live=self.points_to_next_live,
                 live_factor=self.live_factor
             )
-    
+
     def render(self, surface):
         heart_x = settings.VIRTUAL_WIDTH-120
 
@@ -47,7 +52,7 @@ class VictoryState(BaseState):
             )
             heart_x += 11
             i += 1
-        
+
         # Draw empty hearts
         while i < 3:
             surface.blit(
@@ -69,12 +74,11 @@ class VictoryState(BaseState):
 
         render_text(
             surface, f'Level {self.level} completed!', settings.GAME_FONTS['large'],
-             settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT//2-30,
-             (255, 255, 255), center=True
+            settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT//2-30,
+            (255, 255, 255), center=True
         )
         render_text(
             surface, 'Press Enter to continue!', settings.GAME_FONTS['medium'],
             settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT//2,
             (255, 255, 255), center=True
         )
-

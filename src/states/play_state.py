@@ -9,6 +9,7 @@ import random
 import pygame
 
 from gale.state_machine import BaseState
+from gale.input_handler import InputHandler, InputListener
 from gale.text import render_text
 
 from src.paddle import Paddle
@@ -19,8 +20,9 @@ from src import powerups
 import settings
 
 
-class PlayState(BaseState):
+class PlayState(BaseState, InputListener):
     def enter(self, **params):
+        InputHandler.register_listener(self)
         self.level = params['level']
         self.score = params['score']
         self.lives = params['lives']
@@ -39,32 +41,36 @@ class PlayState(BaseState):
 
         self.points_to_next_grow_up = (
             self.score +
-            settings.PADDLE_GROW_UP_POINTS * (self.paddle.size+1) *self.level
+            settings.PADDLE_GROW_UP_POINTS * (self.paddle.size+1) * self.level
         )
 
         self.powerups = []
 
-    def update(self, dt):
-        if settings.pressed_keys.get(pygame.K_p):
+    def exit(self):
+        InputHandler.unregister_listener(self)
+
+    def on_input(self, input_id, input_data):
+        if input_id == 'pause' and input_data.pressed:
             settings.GAME_SOUNDS['pause'].play()
             settings.paused = not settings.paused
-
             if settings.paused:
                 pygame.mixer_music.pause()
             else:
                 pygame.mixer_music.unpause()
-        
+        elif input_id == 'left':
+            if input_data.pressed:
+                self.paddle.vx = -settings.PADDLE_SPEED
+            elif input_data.released and self.paddle.vx < 0:
+                self.paddle.vx = 0
+        elif input_id == 'right':
+            if input_data.pressed:
+                self.paddle.vx = settings.PADDLE_SPEED
+            elif input_data.released and self.paddle.vx > 0:
+                self.paddle.vx = 0
+
+    def update(self, dt):
         if settings.paused:
             return
-
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_LEFT]:
-            self.paddle.vx = -settings.PADDLE_SPEED
-        elif keys[pygame.K_RIGHT]:
-            self.paddle.vx = settings.PADDLE_SPEED
-        else:
-            self.paddle.vx = 0
 
         self.paddle.update(dt)
 
@@ -116,9 +122,9 @@ class PlayState(BaseState):
                     points_to_next_live=self.points_to_next_live,
                     live_factor=self.live_factor
                 )
-    
+
         ###### Bricks update ######
-        
+
         for brick in self.bricks:
             brick.update(dt)
 
@@ -144,7 +150,7 @@ class PlayState(BaseState):
                     if self.score >= self.points_to_next_grow_up:
                         settings.GAME_SOUNDS['grow_up']
                         self.points_to_next_grow_up += (
-                            settings.PADDLE_GROW_UP_POINTS 
+                            settings.PADDLE_GROW_UP_POINTS
                             * (self.paddle.size + 1) * self.level
                         )
                         self.paddle.inc_size()
@@ -167,7 +173,7 @@ class PlayState(BaseState):
                         )
 
                     if not brick.in_play:
-                        self.broken_bricks_counter += 1        
+                        self.broken_bricks_counter += 1
 
         # Update powerups
         for powerup in self.powerups:
@@ -175,9 +181,8 @@ class PlayState(BaseState):
 
             if powerup.collides(self.paddle):
                 powerup.take(self)
-        
-        self.powerups = [p for p in self.powerups if p.in_play]
 
+        self.powerups = [p for p in self.powerups if p.in_play]
 
         # Check victory
         if self.broken_bricks_counter == len(self.bricks):
@@ -204,7 +209,7 @@ class PlayState(BaseState):
             )
             heart_x += 11
             i += 1
-        
+
         # Draw empty hearts
         while i < 3:
             surface.blit(

@@ -19,9 +19,9 @@ HIGHSCORES_PATH = os.path.join(BREAKOUT_DIR, 'highscores.dat')
 def read_highscores():
     if not os.path.exists(BREAKOUT_DIR):
         os.mkdir(BREAKOUT_DIR)
-    
-    with open(HIGHSCORES_PATH, 'a'): 
-         pass
+
+    with open(HIGHSCORES_PATH, 'a'):
+        pass
 
     highscores = []
 
@@ -31,7 +31,7 @@ def read_highscores():
             line = line.split(':')
             line[-1] = int(line[-1])
             highscores.append(line)
-    
+
     return highscores
 
 

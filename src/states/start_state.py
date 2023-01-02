@@ -7,27 +7,33 @@ Date: 07/14/2020
 import pygame
 
 from gale.state_machine import BaseState
+from gale.input_handler import InputHandler, InputListener
 from gale.text import render_text
 
 import settings
 
-class StartState(BaseState):
+
+class StartState(BaseState, InputListener):
     def enter(self):
+        InputHandler.register_listener(self)
         self.selected = 1
 
-    def update(self, dt):
-        if settings.pressed_keys.get(pygame.K_RETURN):
+    def exit(self):
+        InputHandler.unregister_listener(self)
+
+    def on_input(self, input_id, input_data):
+        if input_id == 'enter' and input_data.pressed:
             settings.GAME_SOUNDS['selected'].play()
-            
+
             if self.selected == 1:
                 self.state_machine.change('paddle_selection')
             else:
                 self.state_machine.change('show_high_score')
 
-        if settings.pressed_keys.get(pygame.K_DOWN) and self.selected == 1:
+        if input_id == 'down' and input_data.pressed and self.selected == 1:
             settings.GAME_SOUNDS['paddle_hit'].play()
             self.selected = 2
-        elif settings.pressed_keys.get(pygame.K_UP) and self.selected == 2:
+        elif input_id == 'up' and input_data.pressed and self.selected == 2:
             settings.GAME_SOUNDS['paddle_hit'].play()
             self.selected = 1
 
@@ -41,8 +47,8 @@ class StartState(BaseState):
         color = (52, 235, 216) if self.selected == 1 else (255, 255, 255)
 
         render_text(
-            surface, 'Play Game', settings.GAME_FONTS['medium'], 
-            settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT-60, 
+            surface, 'Play Game', settings.GAME_FONTS['medium'],
+            settings.VIRTUAL_WIDTH//2, settings.VIRTUAL_HEIGHT-60,
             color, center=True
         )
 

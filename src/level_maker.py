@@ -18,7 +18,7 @@ def create_level(level):
     # Ensure odd number of columns
     num_cols = num_cols + 1 if num_cols % 2 == 0 else num_cols
 
-    highest_tier = min(3, (level - 1) % 4)  
+    highest_tier = min(3, (level - 1) % 4)
     highest_color = min(4, (level - 1) // 4)
 
     x_padding = 8 + (13 - num_cols) * 16
@@ -45,7 +45,7 @@ def create_level(level):
                 skip_flag = not skip_flag
 
                 b = Brick(x*32 + x_padding, y*16 + y_padding)
-                
+
                 if alternate_pattern and alternate_flag:
                     b.color = alternate_color_1
                     b.tier = alternate_tier_1
@@ -54,7 +54,7 @@ def create_level(level):
                     b.color = alternate_color_2
                     b.tier = alternate_tier_2
                     alternate_flag = not alternate_flag
-                
+
                 if not alternate_pattern:
                     b.color = solid_color
                     b.tier = solid_tier

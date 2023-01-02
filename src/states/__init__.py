@@ -8,4 +8,4 @@ from src.states.enter_high_score_state import EnterHighScoreState
 from src.states.show_high_score_state import ShowHighScoreState
 
 (StartState, PaddleSelectionState, ServeState, PlayState, GameOverState,
-VictoryState, EnterHighScoreState)
+ VictoryState, EnterHighScoreState)

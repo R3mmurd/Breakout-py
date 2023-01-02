@@ -17,13 +17,14 @@ class PowerUp:
     """
     The base power-up.
     """
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.vy = settings.POWERUP_SPEED
         self.in_play = True
         self.frame = -1
-    
+
     def get_collision_rect(self):
         return pygame.Rect(self.x, self.y, 16, 16)
 
@@ -37,21 +38,22 @@ class PowerUp:
             self.in_play = False
 
         self.y += self.vy*dt
-    
+
     def render(self, surface):
         surface.blit(
             settings.GAME_TEXTURES['atlas'], (self.x, self.y),
             settings.GAME_FRAMES['power-ups'][self.frame]
         )
-    
+
     def take(self, play_state):
         raise NotImplementedError
-    
+
 
 class BrickKey(PowerUp):
     """
     Power-up to unlock a locked brick.
     """
+
     def __init__(self, x, y):
         super(BrickKey, self).__init__(x, y)
         self.frame = 9
@@ -68,10 +70,11 @@ class TwoMoreBall(PowerUp):
     """
     Power-up to add two more ball to the game.
     """
+
     def __init__(self, x, y):
         super(TwoMoreBall, self).__init__(x, y)
         self.frame = 8
-    
+
     def take(self, play_state):
         paddle = play_state.paddle
 

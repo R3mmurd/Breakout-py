@@ -24,7 +24,7 @@ class Ball:
         self.texture = settings.GAME_TEXTURES['atlas']
         self.frame = random.randint(0, 6)
         self.in_play = True
-    
+
     def get_collision_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
 
@@ -43,19 +43,19 @@ class Ball:
             settings.GAME_SOUNDS['wall_hit'].play()
             self.x = 0
             self.vx *= -1
-        
+
         if self.x + self.width > settings.VIRTUAL_WIDTH:
             settings.GAME_SOUNDS['wall_hit'].stop()
             settings.GAME_SOUNDS['wall_hit'].play()
             self.x = settings.VIRTUAL_WIDTH - self.width
             self.vx *= -1
-        
+
         if self.y < 0:
             settings.GAME_SOUNDS['wall_hit'].stop()
             settings.GAME_SOUNDS['wall_hit'].play()
             self.y = 0
             self.vy *= -1
-        
+
         if self.y > settings.VIRTUAL_HEIGHT:
             settings.GAME_SOUNDS['hurt'].play()
             self.in_play = False

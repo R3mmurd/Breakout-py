@@ -10,6 +10,7 @@ import settings
 
 from src.ball_bounce_mixin import BallBounceMixin
 
+
 class Paddle(BallBounceMixin):
     def __init__(self, x, y):
         self.x = x
@@ -25,7 +26,7 @@ class Paddle(BallBounceMixin):
 
         self.texture = settings.GAME_TEXTURES['atlas']
         self.frames = settings.GAME_FRAMES['paddles']
-        
+
         # The paddle only move horizontally
         self.vx = 0
 
@@ -38,13 +39,13 @@ class Paddle(BallBounceMixin):
 
     def inc_size(self):
         self.resize(min(3, self.size+1))
-    
+
     def get_collision_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
 
     def update(self, dt):
         next_x = self.x + self.vx*dt
-        
+
         if self.vx < 0:
             self.x = max(0, next_x)
         else:

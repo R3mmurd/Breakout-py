@@ -1,6 +1,21 @@
 import pygame
 
+from gale import input_handler
+
 from src import quad_util
+
+input_handler.InputHandler.set_keyboard_action(
+    input_handler.KEY_ESCAPE, 'quit')
+input_handler.InputHandler.set_keyboard_action(
+    input_handler.KEY_RETURN, 'enter')
+input_handler.InputHandler.set_keyboard_action(
+    input_handler.KEY_KP_ENTER, 'enter')
+input_handler.InputHandler.set_keyboard_action(input_handler.KEY_UP, 'up')
+input_handler.InputHandler.set_keyboard_action(
+    input_handler.KEY_RIGHT, 'right')
+input_handler.InputHandler.set_keyboard_action(input_handler.KEY_DOWN, 'down')
+input_handler.InputHandler.set_keyboard_action(input_handler.KEY_LEFT, 'left')
+input_handler.InputHandler.set_keyboard_action(input_handler.KEY_p, 'pause')
 
 # Size of our actual window
 WINDOW_WIDTH = 1280
@@ -64,9 +79,6 @@ GAME_FONTS = {
     'medium': pygame.font.Font('fonts/font.ttf', 12),
     'large': pygame.font.Font('fonts/font.ttf', 24),
 }
-
-# Dictionary of pressed keys
-pressed_keys = {}
 
 # Variable to indicate that game is paused
 paused = False

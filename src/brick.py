@@ -42,7 +42,7 @@ class Brick(BallBounceMixin):
         self.particle_system.set_life_time(0.2, 0.4)
         self.particle_system.set_linear_acceleration(-0.3, 0.5, 0.3, 1)
         self.particle_system.set_area_spread(4, 7)
-    
+
     def hit(self):
         settings.GAME_SOUNDS['brick_hit_2'].stop()
         settings.GAME_SOUNDS['brick_hit_2'].play()
@@ -64,7 +64,7 @@ class Brick(BallBounceMixin):
                 self.color -= 1
         else:
             self.tier -= 1
-        
+
     def score(self):
         if self.locked:
             return 0
@@ -80,7 +80,7 @@ class Brick(BallBounceMixin):
         if self.in_play:
             frame = 20 if self.locked else self.color * 4 + self.tier
             surface.blit(
-               self.texture, (self.x, self.y),
-               settings.GAME_FRAMES['bricks'][frame]
+                self.texture, (self.x, self.y),
+                settings.GAME_FRAMES['bricks'][frame]
             )
         self.particle_system.render(surface)

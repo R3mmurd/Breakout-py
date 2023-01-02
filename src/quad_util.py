@@ -7,6 +7,7 @@ Date: 07/14/2020
 """
 import pygame
 
+
 def generate_quads(atlas, tile_width, tile_height):
     """
     Given an atlas, this function builds a list of quads based on
@@ -32,7 +33,7 @@ def generate_quads(atlas, tile_width, tile_height):
                     tile_width, tile_height
                 )
             )
-    
+
     return spritesheet
 
 
@@ -57,20 +58,20 @@ def generate_paddle_quads():
 
             # The next paddle is in (32, y) and its dimensions are 64x16.
             pygame.Rect(
-                x + paddle_base_width, y, 
+                x + paddle_base_width, y,
                 paddle_base_width * 2, paddle_height
             ),
 
             # The next paddle is in (96, y) and its dimensions are 96x16.
             pygame.Rect(
-                x + paddle_base_width * 3, y, 
+                x + paddle_base_width * 3, y,
                 paddle_base_width * 3, paddle_height
             ),
 
             # The largest paddle is in (0, y + 16)
             # and its dimensions are 128x16.
             pygame.Rect(
-                x, y + paddle_height, 
+                x, y + paddle_height,
                 paddle_base_width * 4, paddle_height
             )
         ])
@@ -88,7 +89,7 @@ def generate_ball_quads():
     ball_size = 8
     x = 96
     y = 48
-    
+
     spritesheet = []
 
     for _ in range(4):
@@ -104,10 +105,12 @@ def generate_ball_quads():
 
     return spritesheet
 
+
 def generate_brick_quads(atlas):
     all_quads = generate_quads(atlas, 32, 16)
     # Slice the first 20 quads and add the locked brick
     return all_quads[:20] + [all_quads[23]]
+
 
 def generate_powerups_quads():
     y = 12 * 16  # 4 brick rows + 8 paddle rows

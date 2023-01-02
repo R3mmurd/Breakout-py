@@ -7,6 +7,7 @@ Data: 07/16/2020
 import pygame
 
 from gale.state_machine import BaseState
+from gale.input_handler import InputHandler, InputListener
 from gale.text import render_text
 
 from src.highscores import read_highscores
@@ -14,12 +15,16 @@ from src.highscores import read_highscores
 import settings
 
 
-class ShowHighScoreState(BaseState):
+class ShowHighScoreState(BaseState, InputListener):
     def enter(self):
+        InputHandler.register_listener(self)
         self.hs = read_highscores()
-        
-    def update(self, dt):
-        if settings.pressed_keys.get(pygame.K_RETURN):
+
+    def exit(self):
+        InputHandler.unregister_listener(self)
+
+    def on_input(self, input_id, input_data):
+        if input_id == 'enter' and input_data.pressed:
             self.state_machine.change('start')
 
     def render(self, surface):
@@ -28,11 +33,11 @@ class ShowHighScoreState(BaseState):
             settings.VIRTUAL_WIDTH//2, 20,
             (255, 255, 255), center=True
         )
-        
+
         for i in range(settings.NUM_HIGHSCORES):
             name = '---'
             score = '---'
-        
+
             if i < len(self.hs):
                 item = self.hs[i]
                 name = item[0]
